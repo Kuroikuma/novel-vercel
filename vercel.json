@@ -11,7 +11,7 @@
       "dest": "/"
     },
     {
-      "src": "/api/novela.js",
+      "src": "/api/novela",
       "methods": ["POST", "GET"],
       "dest": "/api/novela.js"
     }
