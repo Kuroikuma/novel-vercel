@@ -16,6 +16,7 @@ app.use(cors());
 app.use("/", routes());
 
 app.use((error, request, response, next) => {
+    console.log(request.query);
   console.error(error.name);
   switch (error.name) {
     case "CastError":
