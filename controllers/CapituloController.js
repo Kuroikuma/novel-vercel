@@ -54,8 +54,8 @@ exports.pagination = async (req, res, next) => {
     const result = await Capitulo.find({ numero: numero });
     const response = {
       result: result,
-      next: `https://${req.get('host')}/api/paginacionCapitulo?id=${numero + 1}`,
-      previous: `https://${req.get('host')}/api/paginacionCapitulo?id=${numero - 1}`,
+      next: numero + 1,
+      previous: numero - 1,
     };
 
     res.status(200).json(response);
