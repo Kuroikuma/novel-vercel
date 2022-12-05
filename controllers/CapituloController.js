@@ -46,12 +46,16 @@ exports.deleteById = (req, res, next) => {
 };
 
 exports.pagination = async (req, res, next) => {
-   console.log(req.get('host'));
+  //console.log(req.get('host'));
   const numero = parseInt(req.query.id);
-  console.log(numero);
+  
+  let novela = req.query.novela;
+  novela = novela.split("-").join(" ")
+  
+  const novelaModel = await Novela.find({nombre: novela });
 
   try {
-    const result = await Capitulo.find({ numero: numero });
+    const result = await Capitulo.find({ numero: numero, novelas:novelaModel[0]._id });
     const response = {
       result: result,
       next: numero + 1,
