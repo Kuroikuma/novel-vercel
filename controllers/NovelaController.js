@@ -17,7 +17,7 @@ exports.show = (req, res, next) => {
 
     console.log("dadad");
   Novela.find({})
-    .populate("capitulos")
+    // .populate("capitulos")
     .then((respuesta) => {
       res.status(200).json(respuesta);
     })
