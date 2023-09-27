@@ -14,6 +14,8 @@ exports.add = (req, res, next) => {
 };
 
 exports.show = (req, res, next) => {
+
+    console.log("dadad");
   Novela.find({})
     .populate("capitulos")
     .then((respuesta) => {
