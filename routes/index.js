@@ -8,8 +8,10 @@ module.exports = function () {
   router.get('/', (req, res) => {
     res.send(`<h1>Hello World<h1>`)
   })
+  
   console.log("entra");
   router.post('/api/capitulo', capituloController.add)
+  router.post('/api/capitulo/addAll', capituloController.addAll)
   router.get('/api/capitulo', capituloController.show)
   router.get('/api/capitulo/:id', capituloController.showById)
   router.delete('/api/capitulo/:id', capituloController.deleteById)
