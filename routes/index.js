@@ -16,6 +16,7 @@ module.exports = function () {
   router.get('/api/capitulo/:id', capituloController.showById)
   router.delete('/api/capitulo/:id', capituloController.deleteById)
   router.get('/api/paginacionCapitulo', capituloController.pagination)
+  router.get('/api/paginacionCapituloPorRango', capituloController.paginationRange)
 
   router.post('/api/novela', novelaController.add)
   router.get('/api/novela', novelaController.show)

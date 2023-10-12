@@ -70,13 +70,13 @@ exports.addAll = async (req, res, next) => {
         }
     })
 
-  saveAllChapters(chaptersToSave)
-    .then((savedProducts) => {
-        console.log('Productos guardados con éxito:', savedProducts);
-    })
-    .catch((error) => {
-        console.error('Error al guardar los productos:', error);
-    })
+    saveAllChapters(chaptersToSave)
+        .then((savedProducts) => {
+            console.log('Productos guardados con éxito:', savedProducts);
+        })
+        .catch((error) => {
+            console.error('Error al guardar los productos:', error);
+        })
 }
 
 exports.add = async (req, res, next) => {
@@ -106,6 +106,31 @@ exports.show = (req, res, next) => {
     .catch((error) => next(error));
 };
 
+exports.paginationRange = async (req, res, next) => {
+
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+
+    let novelaId = req.query.novelaId;
+
+    const startIndex = (page - 1) * limit;
+
+    try {
+        const items = await Capitulo.find({novelas:novelaId}).sort({ numero: -1 }).skip(startIndex).limit(limit).exec();
+        const novela = await Novela.findById(novelaId);
+
+        const response = {
+        items: items,
+        currentPage: page,
+        totalPages: Math.ceil(novela.numeroCapitulos/limit),
+        };
+
+        res.json(response);
+    } catch (err) {
+        next(err);
+    }
+  };
+
 exports.showById = (req, res, next) => {
 
     
@@ -119,6 +144,7 @@ exports.showById = (req, res, next) => {
 
 exports.deleteById = (req, res, next) => {
   const id = req.params.id;
+
   Capitulo.findByIdAndRemove(id)
     .then((respuesta) => {
       res.status(204).send(respuesta);

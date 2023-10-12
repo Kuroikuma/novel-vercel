@@ -26,7 +26,6 @@ exports.show = (req, res, next) => {
 exports.showById = (req, res, next) => {
   const id = req.params.id;
   Novela.findById(id)
-    .populate("capitulos")
     .then((novela) => {
       res.status(200).json(novela);
     })
