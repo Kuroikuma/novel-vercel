@@ -64,9 +64,9 @@ exports.addAll = async (req, res, next) => {
     let chaptersToSave = req.body.cuerpo.split("SeparacionCapitulo").map((chapter) => {
 
         return {
-            cuerpo :chapter.split("-").slice(1).join("-"),
+            cuerpo :chapter.split("---").slice(1).join("---"),
             novelas : req.body.novelas,
-            nombre: chapter.split("-").slice(0,1)[0]
+            nombre: chapter.split("---").slice(0,1)[0]
         }
     })
 
