@@ -8,6 +8,7 @@ const capituloSchema = new Schema({
   cuerpo: String,
   nombre: String,
   numero: Number,
+  chapterDivision:Boolean
 });
 
 capituloSchema.set("toJSON", {

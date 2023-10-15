@@ -42,6 +42,8 @@ async function saveAllChapters(chaptersToSave) {
 
             novela.capitulos.push(chapterSaved._id);
 
+            novela.numeroCapitulos = novela.numeroCapitulos + 1;
+
             novela.save();
 
             return chapterSaved;
@@ -66,7 +68,8 @@ exports.addAll = async (req, res, next) => {
         return {
             cuerpo :chapter.split("---").slice(1).join("---"),
             novelas : req.body.novelas,
-            nombre: chapter.split("---").slice(0,1)[0]
+            nombre: chapter.split("---").slice(0,1)[0],
+            chapterDivision:true
         }
     })
 
