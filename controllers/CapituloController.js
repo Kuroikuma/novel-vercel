@@ -62,6 +62,7 @@ async function saveAllChapters(chaptersToSave) {
 }
 
 exports.addAll = async (req, res, next) => {
+    console.log("entra");
 
     let chaptersToSave = req.body.cuerpo.split("SeparacionCapitulo").map((chapter) => {
 
@@ -75,10 +76,10 @@ exports.addAll = async (req, res, next) => {
 
     saveAllChapters(chaptersToSave)
         .then((savedProducts) => {
-            console.log('Productos guardados con éxito:', savedProducts);
+            res.json('Capitulos guardados con éxito');
         })
         .catch((error) => {
-            console.error('Error al guardar los productos:', error);
+            res.json('Error al guardar los Capitulos');
         })
 }
 
