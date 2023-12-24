@@ -25,7 +25,7 @@ async function saveAllChapters(chaptersToSave) {
         {
             ...chapter,
             numero: lastChapterNumber++,
-            nombre: chapter.nombre ? chapter.nombre : `Chapter ${lastChapterNumber}`,
+            nombre: chapter.nombre ? chapter.nombre : `Chapter ${lastChapterNumber - 1}`,
         }
     ));
 
