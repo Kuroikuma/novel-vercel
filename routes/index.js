@@ -12,6 +12,7 @@ module.exports = function () {
   console.log("entra");
   router.post('/api/capitulo', capituloController.add)
   router.post('/api/capitulo/addAll', capituloController.addAll)
+  router.post('/api/capitulo/addAllWithOutName', capituloController.addAllWithOutName)
   router.get('/api/capitulo', capituloController.show)
   router.get('/api/capitulo/:id', capituloController.showById)
   router.delete('/api/capitulo/:id', capituloController.deleteById)

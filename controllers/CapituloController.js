@@ -24,7 +24,8 @@ async function saveAllChapters(chaptersToSave) {
     let chaptersToSaveMap = chaptersToSave.map((chapter) => (
         {
             ...chapter,
-            numero: lastChapterNumber++
+            numero: lastChapterNumber++,
+            nombre: chapter.nombre ? chapter.nombre : `Chapter ${lastChapterNumber}`,
         }
     ));
 
@@ -55,6 +56,8 @@ async function saveAllChapters(chaptersToSave) {
 
         return savedChapters;
     } catch (error) {
+
+        console.log(error);
         await session.abortTransaction();
         session.endSession();
         throw error;
@@ -70,6 +73,27 @@ exports.addAll = async (req, res, next) => {
             cuerpo :chapter.split("---").slice(1).join("---"),
             novelas : req.body.novelas,
             nombre: chapter.split("---").slice(0,1)[0],
+            chapterDivision:true
+        }
+    })
+
+    saveAllChapters(chaptersToSave)
+        .then((savedProducts) => {
+            res.json('Capitulos guardados con éxito');
+        })
+        .catch((error) => {
+            res.json('Error al guardar los Capitulos');
+        })
+}
+
+exports.addAllWithOutName = async (req, res, next) => {
+    console.log("entra");
+
+    let chaptersToSave = req.body.cuerpo.split("SeparacionCapitulo").map((chapter) => {
+
+        return {
+            cuerpo :chapter.split("---").slice(0).join("---"),
+            novelas : req.body.novelas,
             chapterDivision:true
         }
     })
@@ -124,9 +148,9 @@ exports.paginationRange = async (req, res, next) => {
         const novela = await Novela.findById(novelaId);
 
         const response = {
-        items: items,
-        currentPage: page,
-        totalPages: Math.ceil(novela.numeroCapitulos/limit),
+            items: items,
+            currentPage: page,
+            totalPages: Math.ceil(novela.numeroCapitulos/limit),
         };
 
         res.json(response);
@@ -167,6 +191,7 @@ exports.pagination = async (req, res, next) => {
 
   try {
     const result = await Capitulo.find({ numero: numero, novelas:novelaModel[0]._id });
+
     const response = {
       result: result,
       next: numero + 1,
